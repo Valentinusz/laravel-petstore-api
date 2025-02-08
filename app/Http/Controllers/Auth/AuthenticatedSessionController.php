@@ -7,12 +7,17 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Attributes as OA;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Handle an incoming authentication request.
      */
+    #[OA\Post(
+        path: "session"
+    )]
+    #[OA\Response(response: 204, description: "OK")]
     public function store(LoginRequest $request): Response
     {
         $request->authenticate();

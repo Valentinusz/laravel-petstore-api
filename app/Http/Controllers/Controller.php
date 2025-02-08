@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use OpenApi\Attributes as OA;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-
-class Controller extends BaseController
+#[OA\Info(version: "0.0", title: "Petstore API")]
+abstract class Controller
 {
-    use AuthorizesRequests, ValidatesRequests;
+    //
 }
