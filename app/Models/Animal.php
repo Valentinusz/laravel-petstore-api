@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Animal extends Model
 {
+    protected $fillable = ['name'];
+
     /**
      * There can be many pets of the same animal.
      * @return HasMany

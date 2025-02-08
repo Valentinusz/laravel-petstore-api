@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('is_male');
             $table->date('birth_date')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->boolean('available')->default(true);
             $table->foreignId('animal_id')->constrained('animals');
