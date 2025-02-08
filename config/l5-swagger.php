@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'L5 Swagger UI',
+                'title' => 'Swagger | AnimalShelter API',
             ],
 
             'routes' => [
@@ -234,6 +234,8 @@ return [
             ],
         ],
 
+        'display_operation_id' => true,
+
         /*
          * Set this to `true` in development mode so that docs would be regenerated on each request
          * Set this to `false` to disable swagger generation on production
@@ -275,6 +277,8 @@ return [
          */
         'ui' => [
             'display' => [
+                'displayOperationId' => true,
+                'display_operation_id' => true,
                 'dark_mode' => env('L5_SWAGGER_UI_DARK_MODE', false),
                 /*
                  * Controls the default expansion setting for the operations and tags. It can be :
