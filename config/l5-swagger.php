@@ -65,7 +65,8 @@ return [
              * Middleware allows to prevent unexpected access to API documentation
              */
             'middleware' => [
-                'api' => [],
+                // add web middleware to get csrf token
+                'api' => ['web'],
                 'asset' => [],
                 'docs' => [],
                 'oauth2_callback' => [],
