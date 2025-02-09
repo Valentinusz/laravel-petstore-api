@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -43,6 +44,14 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+//            'role' => Role::class,
         ];
+    }
+
+    public function hasRole(Role $role): bool {
+//        \Illuminate\Log\log("asd");
+//        \Illuminate\Log\log($this->role);
+
+        return $this->role >= $role;
     }
 }
