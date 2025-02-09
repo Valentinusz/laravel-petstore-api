@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Spatie\Permission\Models\Role;
 
 return new class extends Migration
 {
@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        \Spatie\Permission\Models\Permission::create(['name' => 'add pet']);
+        $admin = \Spatie\Permission\Models\Role::findByName('admin');
 
-        Role::create(['name' => 'admin'])->givePermissionTo('add pet');
-        Role::create(['name' => 'worker']);
-        Role::create(['name' => 'user']);
 
+        $admin->givePermissionTo("add pet");
     }
 
     /**
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-
+        //
     }
 };

@@ -48,11 +48,4 @@ class User extends Authenticatable
 //            'role' => Role::class,
         ];
     }
-
-    public function hasRole(Role $role): bool {
-//        \Illuminate\Log\log("asd");
-//        \Illuminate\Log\log($this->role);
-
-        return $this->role >= $role;
-    }
 }
