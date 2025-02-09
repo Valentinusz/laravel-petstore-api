@@ -1,0 +1,398 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Petstore API",
+        "version": "0.0"
+    },
+    "paths": {
+        "/api/v1/adoptions": {
+            "get": {
+                "tags": [
+                    "Adoption"
+                ],
+                "summary": "Get a page of pets",
+                "operationId": "eb0fdc02fca4bc574b72713f2486a883",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Adoption"
+                ],
+                "summary": "Add a new pet",
+                "operationId": "72ecdd1af856b3617e9cbb5a00444705",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/v1/adoptions/{adoption}": {
+            "get": {
+                "tags": [
+                    "Adoption"
+                ],
+                "summary": "Get the given pet",
+                "operationId": "501c4e445704b019f8f8848e4b42d8bc",
+                "parameters": [
+                    {
+                        "name": "pet",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Adoption"
+                ],
+                "summary": "Update a pet",
+                "operationId": "59492fd8c45148cf386ce665a350c8e4",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/v1/adoptions/{adoptionId}": {
+            "delete": {
+                "tags": [
+                    "Adoption"
+                ],
+                "summary": "Delete a pet",
+                "operationId": "c8db9a2271e15e7a49446de23904996e",
+                "parameters": [
+                    {
+                        "name": "petId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Log in",
+                "description": "Handle an incoming authentication request.",
+                "operationId": "42f77e072dec84b0e1094cca1228298e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/pets": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "summary": "Get a page of pets",
+                "operationId": "getPets",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pet"
+                ],
+                "summary": "Add a new pet",
+                "operationId": "a931458cc75b6b424cc10814321b7bee",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/v1/pets/{pet}": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "summary": "Get the given pet",
+                "operationId": "02194f64e47974ee3b5b01eb231526f3",
+                "parameters": [
+                    {
+                        "name": "pet",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Pet"
+                ],
+                "summary": "Update a pet",
+                "operationId": "173b6179de0b0ea2e5b31ae607834efb",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/v1/pets/{petId}": {
+            "delete": {
+                "tags": [
+                    "Pet"
+                ],
+                "summary": "Delete a pet",
+                "operationId": "8f63027642006a17fdada5542d46fea6",
+                "parameters": [
+                    {
+                        "name": "petId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/pets/{petId}/pet-pictures": {
+            "post": {
+                "tags": [
+                    "PetPicture"
+                ],
+                "summary": "Get a page of pets",
+                "operationId": "65a87f003891714ac6ea7129c1d02586",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/v1/pet-pictures/{pictureId}": {
+            "delete": {
+                "tags": [
+                    "PetPicture"
+                ],
+                "summary": "Get a page of pets",
+                "operationId": "6f8b706e521df4d7072ccf0568724439",
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "title": "LoginRequest",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@doe.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "secret"
+                    }
+                },
+                "type": "object"
+            },
+            "StorePetRequest": {
+                "title": "StorePetRequest",
+                "required": [
+                    "name",
+                    "animal",
+                    "gender"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Max",
+                        "nullable": false
+                    },
+                    "animal": {
+                        "type": "string",
+                        "example": "Cat",
+                        "nullable": false
+                    },
+                    "birth_date": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": false
+                    },
+                    "gender": {
+                        "type": "string",
+                        "enum": [
+                            "male",
+                            "female"
+                        ],
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearer": {
+                "type": "http",
+                "description": "Bearer token",
+                "name": "bearer",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Adoption"
+        },
+        {
+            "name": "Pet"
+        },
+        {
+            "name": "PetPicture"
+        }
+    ]
+}

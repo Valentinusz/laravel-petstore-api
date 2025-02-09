@@ -8,7 +8,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(
+    title: "LoginRequest",
+    required: ['email', 'password'],
+    properties: [
+        new OA\Property(property: 'email', type: 'string', example: 'john@doe.com'),
+        new OA\Property(property: 'password', type: 'string', example: 'secret'),
+    ]
+)]
 class LoginRequest extends FormRequest
 {
     /**

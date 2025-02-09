@@ -15,9 +15,11 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     #[OA\Post(
-        path: "session"
+        path: "/login",
+        summary: "Log in"
     )]
-    #[OA\Response(response: 204, description: "OK")]
+    #[OA\RequestBody(required: true, content: new OA\JsonContent(ref: "#/components/schemas/LoginRequest"))]
+    #[OA\Response(response: 200, description: "OK", content: new OA\MediaType('application/json'))]
     public function store(LoginRequest $request): Response
     {
         $request->authenticate();
