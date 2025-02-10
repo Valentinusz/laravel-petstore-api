@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "PetStore API - Laravel",
+        "version": "0.0.0"
+    },
+    "paths": {
+        "/v1/stores": {
+            "get": {
+                "summary": "Returns all stores",
+                "operationId": "26f4de060be04a6e883e909b7c420895",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}
