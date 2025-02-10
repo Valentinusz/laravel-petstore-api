@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Animal;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,13 +17,13 @@ class PetResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'animal' => AnimalResource::make($this->animal),
+            'id' => $request->id,
+            'name' => $request->name,
+            'animal' => AnimalResource::make($request->animal),
             'gender' => $this->gender(),
-            'description' => $this->description,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'description' => $request->description,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at
         ];
     }
 }
