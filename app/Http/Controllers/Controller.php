@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+use OpenApi\Attributes as OA;
 
-class Controller extends BaseController
+#[OA\Info(version: "0.0", title: "Petstore API")]
+#[OA\SecurityScheme(securityScheme: "bearer", type: "http", description: "Bearer token", name: "bearer", scheme: "bearer")]
+abstract class Controller
 {
-    use AuthorizesRequests, ValidatesRequests;
+    //
 }

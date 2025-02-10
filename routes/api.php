@@ -1,26 +1,26 @@
 <?php
 
-use App\Http\Controllers\StoreController;
+use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\PetController;
+use App\Http\Controllers\PetPictureController;
+use App\Http\Resources\AnimalCollection;
+use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use OpenApi\Attributes as OA;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'stores' => StoreController::class,
-]);
+Route::prefix('v1')->middleware('api')->group(function () {
+    Route::get('/animals', function () {
+        return AnimalCollection::collection(Animal::all());
+    });
+
+    Route::apiResources([
+        'pets' => PetController::class,
+        'adoptions' => AdoptionController::class,
+    ]);
+
+    Route::apiResource("pets.pictures", PetPictureController::class)->only(['store', 'destroy']);
+});

@@ -8,7 +8,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(
+    title: "LoginRequest",
+    required: ['email', 'password'],
+    properties: [
+        new OA\Property(property: 'email', type: 'string', example: 'john@doe.com'),
+        new OA\Property(property: 'password', type: 'string', example: 'secret'),
+    ]
+)]
 class LoginRequest extends FormRequest
 {
     /**
@@ -22,7 +31,7 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
