@@ -9,14 +9,14 @@ use OpenApi\Attributes as OA;
 
 /** @mixin Animal */
 #[OA\Schema(
-    schema: 'Animal',
+    schema: 'AnimalDetails',
     required: ["id", "name"],
     properties: [
         new OA\Property(property: "id", type: "integer", example: 1),
         new OA\Property(property: "name", type: "string", example: "Cat")
     ]
 )]
-class AnimalResource extends JsonResource
+class AnimalDetailsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

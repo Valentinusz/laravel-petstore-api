@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetPictureController;
 use App\Http\Controllers\UserController;
-use App\Http\Resources\AnimalCollection;
+use App\Http\Resources\AnimalSummaryCollection;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,15 +16,16 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::prefix('v1')->middleware('api')->group(function () {
     Route::get('/animals', function () {
-        return AnimalCollection::collection(Animal::all());
+        return AnimalSummaryCollection::collection(Animal::all());
     });
 
     Route::prefix('users')->group(function () {
         Route::get('/current', [UserController::class, 'current']);
-        Route::apiResource('users', UserController::class)->only(['index', 'show']);
+        Route::apiResource('', UserController::class)->only(['index', 'show']);
     });
 
     Route::apiResources([
+        'animals' => AnimalController::class,
         'pets' => PetController::class,
         'adoptions' => AdoptionController::class,
     ]);

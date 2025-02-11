@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
 
+/** @mixin User */
 #[OA\Schema(schema: "User", required: ["name"], properties: [
     new OA\Property(property: "name")
 ])]

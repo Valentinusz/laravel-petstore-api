@@ -120,6 +120,110 @@
                 }
             }
         },
+        "/api/v1/animals": {
+            "get": {
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Get all animals",
+                "operationId": "0b709deff337cdadafc2fa4db0a789e8",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AnimalSummaryCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Add a new animal",
+                "operationId": "e1cfcfb74160cc91b3fb818a01bc4064",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/v1/animals/{animal}": {
+            "get": {
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Get the given animal",
+                "operationId": "e19e43645410a73ed5ba10a9e3ac6d26",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Update the given animal",
+                "operationId": "3ccd62da32c62815a141deb15bd4c96d",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Delete the given animal",
+                "operationId": "5a8691ecf90cb852d51d904ffe7c7a0f",
+                "parameters": [
+                    {
+                        "name": "animal",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict - A pet exists for the animal type"
+                    }
+                }
+            }
+        },
         "/login": {
             "post": {
                 "summary": "Log in",
@@ -460,7 +564,38 @@
                 },
                 "type": "object"
             },
-            "Animal": {
+            "AnimalDetails": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Cat"
+                    }
+                },
+                "type": "object"
+            },
+            "AnimalSummaryCollection": {
+                "required": [
+                    "data"
+                ],
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AnimalSummary"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "AnimalSummary": {
                 "required": [
                     "id",
                     "name"
@@ -496,7 +631,7 @@
                         "example": "Pet"
                     },
                     "animal": {
-                        "$ref": "#/components/schemas/Animal"
+                        "$ref": "#/components/schemas/AnimalSummary"
                     },
                     "gender": {
                         "type": "string",
@@ -543,6 +678,9 @@
     "tags": [
         {
             "name": "Adoption"
+        },
+        {
+            "name": "Animal"
         },
         {
             "name": "Pet"
