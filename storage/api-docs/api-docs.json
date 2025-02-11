@@ -163,7 +163,7 @@
                         "example": 1
                     },
                     {
-                        "name": "page_size",
+                        "name": "page-size",
                         "in": "query",
                         "required": false,
                         "schema": {
@@ -176,7 +176,27 @@
                     "200": {
                         "description": "OK",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "schema": {
+                                    "title": "PageOfPet",
+                                    "required": [
+                                        "data",
+                                        "meta"
+                                    ],
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Pet"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PageMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
                         }
                     }
                 }
@@ -317,10 +337,76 @@
                     }
                 }
             }
+        },
+        "/api/v1/users/current": {
+            "get": {
+                "operationId": "0aa8bbde535c6ae13c02368a9e42c52d",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "PageMeta": {
+                "required": [
+                    "current_page",
+                    "from",
+                    "last_page",
+                    "path",
+                    "per_page",
+                    "to",
+                    "total"
+                ],
+                "properties": {
+                    "current_page": {
+                        "description": "Index of the current page. Indexed from 1.",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "from": {
+                        "description": "Index of the first item of the page among all items. Equal to (page * per_page) + 1.",
+                        "type": "integer",
+                        "example": 6
+                    },
+                    "last_page": {
+                        "description": "Index of the last page",
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "path": {
+                        "description": "URL of the current endpoint",
+                        "type": "string",
+                        "example": "http://127.0.0.1:8000/api/v1/pets"
+                    },
+                    "per_page": {
+                        "description": "Page size",
+                        "type": "string",
+                        "example": 5
+                    },
+                    "to": {
+                        "description": "Index of the last item of the page among all items. Equal to page * (per_page + 1).",
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "total": {
+                        "description": "Total count of items",
+                        "type": "integer",
+                        "example": 20
+                    }
+                },
+                "type": "object"
+            },
             "LoginRequest": {
                 "title": "LoginRequest",
                 "required": [
@@ -371,6 +457,76 @@
                         ],
                         "nullable": false
                     }
+                },
+                "type": "object"
+            },
+            "Animal": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Cat"
+                    }
+                },
+                "type": "object"
+            },
+            "Pet": {
+                "required": [
+                    "id",
+                    "name",
+                    "animal",
+                    "gender",
+                    "created_at",
+                    "updated_at"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Pet"
+                    },
+                    "animal": {
+                        "$ref": "#/components/schemas/Animal"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "enum": [
+                            "male",
+                            "female"
+                        ],
+                        "example": "Male"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Very shy."
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {}
                 },
                 "type": "object"
             }

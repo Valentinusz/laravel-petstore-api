@@ -7,7 +7,6 @@ use App\Http\Resources\PetCollection;
 use App\Http\Resources\PetResource;
 use App\Models\Pet;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use OpenApi\Attributes as OA;
 
@@ -16,14 +15,20 @@ class PetController extends Controller
 {
     #[OA\Get(path: '/api/v1/pets', operationId: "getPets", summary: 'Get a page of pets', tags: ["Pet"])]
     #[OA\Parameter(name: 'page', in: 'query', required: false, schema: new OA\Schema(type: 'integer'), example: 1)]
-    #[OA\Parameter(name: 'page_size', in: 'query', required: false, schema: new OA\Schema(type: 'integer'), example: 20)]
-    #[OA\Response(response: 200, description: 'OK', content: new OA\MediaType('application/json'))]
+    #[OA\Parameter(name: 'page-size', in: 'query', required: false, schema: new OA\Schema(type: 'integer'), example: 20)]
+    #[OA\Response(response: 200, description: 'OK', content: new OA\JsonContent(
+        title: "PageOfPet",
+        required: ["data", "meta"],
+        properties: [
+            new OA\Property(property: "data", type: "array", items: new OA\Items(ref: "#/components/schemas/Pet")),
+            new OA\Property(property: "meta", ref: "#/components/schemas/PageMeta")
+        ]
+    ))]
     public function index(Request $request): PetCollection
     {
-
         return new PetCollection(
-            Pet::paginate(
-                perPage: $request->query('page_size', 20),
+            Pet::with("animal")->paginate(
+                perPage: $request->query('page-size', 20),
                 page: $request->query('page', 0)
             )
         );
