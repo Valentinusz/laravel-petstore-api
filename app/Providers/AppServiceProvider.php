@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Animal;
+use App\Models\User;
+use App\Policies\AnimalPolicy;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -31,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
         });
+
+        \Illuminate\Support\Facades\Gate::policy(Animal::class, AnimalPolicy::class);
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

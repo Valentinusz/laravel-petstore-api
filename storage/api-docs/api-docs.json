@@ -205,18 +205,11 @@
                     "204": {
                         "description": "No content",
                         "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
+                            "application/json": {}
                         }
                     },
                     "404": {
-                        "description": "Not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Not found"
                     },
                     "409": {
                         "description": "Conflict - A pet exists for the animal type"
@@ -226,9 +219,12 @@
         },
         "/login": {
             "post": {
+                "tags": [
+                    "Authentication"
+                ],
                 "summary": "Log in",
                 "description": "Handle an incoming authentication request.",
-                "operationId": "42f77e072dec84b0e1094cca1228298e",
+                "operationId": "login",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -242,6 +238,30 @@
                 "responses": {
                     "200": {
                         "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Log out",
+                "description": "Destroy an authenticated session.",
+                "operationId": "logout",
+                "responses": {
+                    "204": {
+                        "description": "Session destroyed",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated",
                         "content": {
                             "application/json": {}
                         }
@@ -681,6 +701,9 @@
         },
         {
             "name": "Animal"
+        },
+        {
+            "name": "Authentication"
         },
         {
             "name": "Pet"

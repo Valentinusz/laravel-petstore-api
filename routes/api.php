@@ -14,7 +14,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->middleware('api')->group(function () {
+Route::prefix('v1')->middleware(['api', 'auth'])->group(function () {
     Route::get('/animals', function () {
         return AnimalSummaryCollection::collection(Animal::all());
     });

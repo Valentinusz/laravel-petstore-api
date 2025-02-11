@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 
+#[OA\Tag(name: "Authentication")]
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -16,7 +17,9 @@ class AuthenticatedSessionController extends Controller
      */
     #[OA\Post(
         path: "/login",
-        summary: "Log in"
+        operationId: "login",
+        summary: "Log in",
+        tags: ["Authentication"]
     )]
     #[OA\RequestBody(required: true, content: new OA\JsonContent(ref: "#/components/schemas/LoginRequest"))]
     #[OA\Response(response: 200, description: "OK", content: new OA\MediaType('application/json'))]
@@ -32,6 +35,14 @@ class AuthenticatedSessionController extends Controller
     /**
      * Destroy an authenticated session.
      */
+    #[OA\Post(
+        path: "/logout",
+        operationId: "logout",
+        summary: "Log out",
+        tags: ["Authentication"]
+    )]
+    #[OA\Response(response: 204, description: "Session destroyed", content: new OA\MediaType('application/json'))]
+    #[OA\Response(response: 401, description: "Not authenticated", content: new OA\MediaType('application/json'))]
     public function destroy(Request $request): Response
     {
         Auth::guard('web')->logout();

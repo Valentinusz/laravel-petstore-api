@@ -49,7 +49,7 @@ class AnimalController extends Controller
 
     #[OA\Delete(path: "/api/v1/animals/{animal}", summary: "Delete the given animal", tags: ["Animal"])]
     #[OA\Parameter(name: "animal", in: "path", required: true, schema: new OA\Schema(type: "integer"), example: 1)]
-    #[OA\Response(response: 204, description: "No content", content: new OA\JsonContent())]
+    #[OA\Response(response: 204, description: "No content", content: new OA\MediaType('application/json'))]
     #[OA\Response(response: 404, description: "Not found")]
     #[OA\Response(response: 409, description: "Conflict - A pet exists for the animal type")]
     public function destroy(Animal $animal)
