@@ -30,7 +30,8 @@ class AnimalPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        Log::info("asd");
+        return $user->hasPermissionTo('add animal');
     }
 
     /**

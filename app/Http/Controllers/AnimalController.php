@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAnimalRequest;
 use App\Http\Resources\AnimalSummaryCollection;
 use App\Http\Resources\AnimalDetailsResource;
 use App\Http\Resources\AnimalSummaryResource;
@@ -34,9 +35,14 @@ class AnimalController extends Controller
     }
 
     #[OA\Post(path: "/api/v1/animals", summary: "Add a new animal", tags: ["Animal"])]
-    #[OA\Response(response: 201, description: "Created")]
-    public function store()
+    #[OA\Response(response: 201, description: "Created", content: new OA\MediaType("application/json"))]
+    #[OA\RequestBody(required: true, content: new OA\JsonContent(ref: "#/components/schemas/StoreAnimalRequest"))]
+    public function store(StoreAnimalRequest $request)
     {
+        Animal::create([
+            'name' => $request->name
+        ]);
+
         return response(status: 201);
     }
 
@@ -54,7 +60,7 @@ class AnimalController extends Controller
     #[OA\Response(response: 409, description: "Conflict - A pet exists for the animal type")]
     public function destroy(Animal $animal)
     {
-        if (Animal::has("pets")) {
+        if ($animal->pets()->exists()) {
             return response(status: 409);
         }
 

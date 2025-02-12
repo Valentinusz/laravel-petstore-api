@@ -14,8 +14,8 @@ use OpenApi\Attributes as OA;
     title: "LoginRequest",
     required: ['email', 'password'],
     properties: [
-        new OA\Property(property: 'email', type: 'string', example: 'john@doe.com'),
-        new OA\Property(property: 'password', type: 'string', example: 'secret'),
+        new OA\Property(property: 'email', type: 'string', example: 'admin@laravelpetshelter.com'),
+        new OA\Property(property: 'password', type: 'string', example: 'password'),
     ]
 )]
 class LoginRequest extends FormRequest

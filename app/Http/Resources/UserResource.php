@@ -22,7 +22,8 @@ class UserResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'roles' => $this->roles,
+            'roles' => RoleResource::collection($this->roles),
+            'permissions' => $this->getPermissionsViaRoles()
         ];
     }
 }

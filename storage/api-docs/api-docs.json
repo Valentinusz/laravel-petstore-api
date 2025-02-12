@@ -146,9 +146,22 @@
                 ],
                 "summary": "Add a new animal",
                 "operationId": "e1cfcfb74160cc91b3fb818a01bc4064",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAnimalRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "content": {
+                            "application/json": {}
+                        }
                     }
                 }
             }
@@ -236,8 +249,16 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "204": {
+                        "description": "No content",
+                        "headers": {
+                            "Set-Cookie": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "laravel_session=0%3D; expires=Wed, 12 Feb 2025 21:56:44 GMT; Max-Age=7200; httponly; samesite=lax"
+                                }
+                            }
+                        },
                         "content": {
                             "application/json": {}
                         }
@@ -266,7 +287,12 @@
                             "application/json": {}
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "scalar": "laravel_session"
+                    }
+                ]
             }
         },
         "/api/v1/pets": {
@@ -540,11 +566,25 @@
                 "properties": {
                     "email": {
                         "type": "string",
-                        "example": "john@doe.com"
+                        "example": "admin@laravelpetshelter.com"
                     },
                     "password": {
                         "type": "string",
-                        "example": "secret"
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreAnimalRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Dog",
+                        "nullable": false
                     }
                 },
                 "type": "object"
@@ -686,12 +726,19 @@
                 "type": "object"
             }
         },
+        "headers": {
+            "Set-Cookie": {
+                "schema": {
+                    "type": "string",
+                    "example": "laravel_session=0%3D; expires=Wed, 12 Feb 2025 21:56:44 GMT; Max-Age=7200; httponly; samesite=lax"
+                }
+            }
+        },
         "securitySchemes": {
-            "bearer": {
-                "type": "http",
-                "description": "Bearer token",
-                "name": "bearer",
-                "scheme": "bearer"
+            "cookie": {
+                "type": "apiKey",
+                "name": "laravel_session",
+                "in": "cookie"
             }
         }
     },
