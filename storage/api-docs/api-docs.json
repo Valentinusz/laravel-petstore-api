@@ -624,6 +624,20 @@
                 },
                 "type": "object"
             },
+            "UpdateAnimalRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Dog",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
             "AnimalDetails": {
                 "required": [
                     "id",

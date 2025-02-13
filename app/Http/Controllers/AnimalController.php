@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAnimalRequest;
-use App\Http\Resources\AnimalSummaryCollection;
 use App\Http\Resources\AnimalDetailsResource;
 use App\Http\Resources\AnimalSummaryResource;
 use App\Models\Animal;
-use App\Models\Pet;
-use http\Env\Response;
-use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Animal")]
@@ -49,7 +45,7 @@ class AnimalController extends Controller
     #[OA\Put(path: "/api/v1/animals/{animal}", summary: "Update the given animal", tags: ["Animal"])]
     #[OA\Response(response: 200, description: "OK")]
     #[OA\Response(response: 404, description: "Not found")]
-    public function update()
+    public function update(Animal $animal, StoreAnimalRequest $request)
     {
     }
 

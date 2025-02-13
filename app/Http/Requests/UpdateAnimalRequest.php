@@ -2,28 +2,27 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Animal;
+use App\Http\Validation\AnimalValidationRules;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
-    schema: "StoreAnimalRequest",
+    schema: "UpdateAnimalRequest",
     required: ["name"],
     properties: [
-        new OA\Property(property: "name", type: "string", maxLength: 255, example: "Dog", nullable: false),
+        new OA\Property(property: "name", type: "string", maxLength: 255, example: "Dog", nullable: false)
     ]
 )]
-class StoreAnimalRequest extends FormRequest
+class UpdateAnimalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::user()->hasPermissionTo("add animal");
+        return Auth::user()->hasPermissionTo("update animal");
     }
 
     /**
@@ -34,7 +33,7 @@ class StoreAnimalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required", Rule::unique("animals", "name")->ignore($this->id)],
+            "name" => AnimalValidationRules::VALID_ANIMAL_NAME
         ];
     }
 }
