@@ -8,6 +8,7 @@ use App\Http\Resources\PetResource;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Pet")]
@@ -51,7 +52,15 @@ class PetController extends Controller
     {
         $validated = $request->validated();
 
-        \Illuminate\Log\log($validated);
+        Log::info($validated);
+
+        Pet::create([
+            'name' => $validated['name'],
+            'is_male' => $validated['gender'] === 'male',
+            'birth_date' =>  $validated['birth_date'],
+            'description' => $validated['description'],
+            'animal_id' => $validated['animal_id']
+        ]);
 
         return response()->json([
             'name' => $validated["name"],

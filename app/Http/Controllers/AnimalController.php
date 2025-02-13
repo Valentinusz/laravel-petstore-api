@@ -47,6 +47,9 @@ class AnimalController extends Controller
     #[OA\Response(response: 404, description: "Not found")]
     public function update(Animal $animal, StoreAnimalRequest $request)
     {
+        $animal->name = $request->name;
+
+        $animal->save();
     }
 
     #[OA\Delete(path: "/api/v1/animals/{animal}", summary: "Delete the given animal", tags: ["Animal"])]
