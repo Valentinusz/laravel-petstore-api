@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePetRequest;
+use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetCollection;
 use App\Http\Resources\PetResource;
 use App\Models\Pet;
@@ -52,8 +53,6 @@ class PetController extends Controller
     {
         $validated = $request->validated();
 
-        Log::info($validated);
-
         Pet::create([
             'name' => $validated['name'],
             'is_male' => $validated['gender'] === 'male',
@@ -70,8 +69,16 @@ class PetController extends Controller
     #[OA\Put(path: '/api/v1/pets/{pet}', summary: 'Update a pet', tags: ["Pet"])]
     #[OA\Response(response: 200, description: 'Created', content: new OA\MediaType('application/json'))]
     #[OA\Response(response: 404, description: 'OK')]
-    public function update(Pet $pet): PetResource
+    public function update(Pet $pet, UpdatePetRequest $request): PetResource
     {
+        $validated = $request->validated();
+
+        $pet->name = $validated["name"];
+        $pet->is_male = $validated["is_male"];
+        $pet->birth_date = $validated["birth_date"];
+        $pet->description = $validated["description"];
+        $pet->animal_id = $validated["animal"];
+
         return new PetResource($pet);
     }
 
