@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdoptionCollection;
+use App\Models\Adoption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use OpenApi\Attributes as OA;
@@ -9,9 +11,10 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: "Adoption")]
 class AdoptionController extends Controller
 {
-    #[OA\Get(path: '/api/v1/adoptions', summary: 'Get a page of pets', tags: ["Adoption"])]
+    #[OA\Get(path: '/api/v1/adoptions', summary: 'Get a page of adoptions', tags: ["Adoption"])]
     #[OA\Response(response: 200, description: 'OK', content: new OA\MediaType('application/json'))]
-    public function index() {
+    public function index(Request $request) {
+        return new AdoptionCollection(Adoption::paginate());
     }
 
     #[OA\Get(path: '/api/v1/adoptions/{adoption}', summary: 'Get the given pet', tags: ["Adoption"])]

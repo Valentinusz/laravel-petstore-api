@@ -10,7 +10,7 @@
                 "tags": [
                     "Adoption"
                 ],
-                "summary": "Get a page of pets",
+                "summary": "Get all adoptions",
                 "operationId": "eb0fdc02fca4bc574b72713f2486a883",
                 "responses": {
                     "200": {
@@ -427,15 +427,13 @@
                         "description": "OK"
                     }
                 }
-            }
-        },
-        "/api/v1/pets/{petId}": {
+            },
             "delete": {
                 "tags": [
                     "Pet"
                 ],
                 "summary": "Delete a pet",
-                "operationId": "8f63027642006a17fdada5542d46fea6",
+                "operationId": "03b75c362c9191f98c6cd9a43fc0ee1f",
                 "parameters": [
                     {
                         "name": "petId",
@@ -633,6 +631,44 @@
                         "type": "string",
                         "maxLength": 255,
                         "example": "Dog",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePetRequest": {
+                "required": [
+                    "name",
+                    "is_male",
+                    "birth_date",
+                    "description",
+                    "animal"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Maximus",
+                        "nullable": false
+                    },
+                    "is_male": {
+                        "type": "boolean",
+                        "example": false,
+                        "nullable": false
+                    },
+                    "birth_date": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": false
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Best boy.",
+                        "nullable": false
+                    },
+                    "animal": {
+                        "type": "integer",
+                        "example": 1,
                         "nullable": false
                     }
                 },
