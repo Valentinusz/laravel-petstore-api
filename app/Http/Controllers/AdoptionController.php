@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AdoptionCollection;
+use App\Http\Resources\Adoption\AdoptionCollection;
 use App\Models\Adoption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Pet;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Spatie\Permission\Models\Role;
 
-/** @mixin Role */
-class RoleCollection extends ResourceCollection
+class PetCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,9 +14,6 @@ class RoleCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            "id" => $this->id,
-            "name" => $this->name,
-        ];
+        return parent::toArray($request);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Pet;
 
+use App\Http\Resources\Animal\AnimalSummaryResource;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
-use phpDocumentor\Reflection\DocBlock\Tags\Property;
 
 /** @mixin Pet */
 #[OA\Schema(

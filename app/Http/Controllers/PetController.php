@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePetRequest;
-use App\Http\Requests\UpdatePetRequest;
-use App\Http\Resources\PetCollection;
-use App\Http\Resources\PetResource;
+use App\Http\Requests\Pet\StorePetRequest;
+use App\Http\Requests\Pet\UpdatePetRequest;
+use App\Http\Resources\Pet\PetCollection;
+use App\Http\Resources\Pet\PetResource;
 use App\Models\Pet;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Pet")]

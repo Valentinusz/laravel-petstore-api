@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Pet;
 
 use App\Models\Role;
 use App\Models\User;

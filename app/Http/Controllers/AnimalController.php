@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAnimalRequest;
-use App\Http\Resources\AnimalDetailsResource;
-use App\Http\Resources\AnimalSummaryResource;
+use App\Http\Requests\Animal\StoreAnimalRequest;
+use App\Http\Resources\Animal\AnimalDetailsResource;
+use App\Http\Resources\Animal\AnimalSummaryResource;
 use App\Models\Animal;
 use OpenApi\Attributes as OA;
 

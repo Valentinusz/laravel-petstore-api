@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Animal;
 
 use App\Http\Validation\AnimalValidationRules;
 use Illuminate\Contracts\Validation\ValidationRule;

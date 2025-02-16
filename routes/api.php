@@ -5,7 +5,7 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetPictureController;
 use App\Http\Controllers\UserController;
-use App\Http\Resources\AnimalSummaryCollection;
+use App\Http\Resources\Animal\AnimalSummaryCollection;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
