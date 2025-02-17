@@ -17,7 +17,11 @@ return new class extends Migration
         'read animal',
         'add animal',
         'update animal',
-        'delete animal'
+        'delete animal',
+        'read adoption',
+        'store adoption',
+        'update adoption',
+        'delete adoption'
     ];
 
     /**
@@ -32,7 +36,11 @@ return new class extends Migration
         'read animal',
         'add animal',
         'update animal',
-        'delete animal'
+        'delete animal',
+        'read adoption',
+        'store adoption',
+        'update adoption',
+        'delete adoption'
     ];
 
     /**
