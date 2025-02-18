@@ -19,14 +19,17 @@ class PetPictureFactory extends Factory
      */
     public function definition(): array
     {
-        $files = Storage::allFiles("placeholder");
-
+        $files = Storage::disk("local")->files("placeholder");
         $file = $files[rand(0, count($files) - 1)];
 
-        $file->store('images');
+        \Log::info($file);
+
+        $fileName = \File::basename($file);
+
+        Storage::copy(Storage::disk("local")->get($file), Storage::disk("public")->path("pet-pictures/$fileName"));
 
         return [
-            ''
+            'url' => $this->faker->url(),
         ];
     }
 

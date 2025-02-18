@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->foreignId('pet_id')->constrained();
-            $table->boolean('is_default')->default(false);
             $table->timestamps();
         });
     }

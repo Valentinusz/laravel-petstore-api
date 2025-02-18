@@ -15,7 +15,7 @@ class PetPictureSeeder extends Seeder
     {
         // for each pet except the first add 1-3 pictures
         Pet::all()->skip(1)->each(function (Pet $pet) {
-            PetPicture::factory()->count(1)->create(['pet_id' => $pet->id, 'is_default' => true]);
+            PetPicture::factory()->count(1)->create(['pet_id' => $pet->id]);
             PetPicture::factory()->count(rand(0, 2))->create(['pet_id' => $pet->id]);
         });
     }

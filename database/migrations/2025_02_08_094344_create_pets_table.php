@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('available')->default(true);
             $table->foreignId('animal_id')->constrained('animals');
             $table->foreignId('adoption_id')->nullable()->constrained('adoptions');
+            $table->foreignId('primary-picture')->nullable()->constrained('pet_pictures');
             $table->timestamps();
         });
     }
