@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Models\PetPicture;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -19,14 +21,22 @@ class PetPictureFactory extends Factory
      */
     public function definition(): array
     {
-        $files = Storage::disk("local")->files("placeholder");
+        $placeholderImagesDisk = Storage::build([
+            'driver' => 'local',
+            'root' => 'resources\placeholder'
+        ]);
+
+        $files = $placeholderImagesDisk->files();
         $file = $files[rand(0, count($files) - 1)];
 
-        \Log::info($file);
+        $file2 = new UploadedFile($placeholderImagesDisk->path($file), $file);
+        $file2->store("pet-pictures", 'public');
 
-        $fileName = \File::basename($file);
 
-        Storage::copy(Storage::disk("local")->get($file), Storage::disk("public")->path("pet-pictures/$fileName"));
+//
+//        $fileName = \File::basename($file);
+//
+//        Storage::copy(Storage::disk("local")->get($file), Storage::disk("public")->path("pet-pictures/$fileName"));
 
         return [
             'url' => $this->faker->url(),
