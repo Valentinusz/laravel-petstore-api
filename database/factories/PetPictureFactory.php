@@ -27,19 +27,13 @@ class PetPictureFactory extends Factory
         ]);
 
         $files = $placeholderImagesDisk->files();
-        $file = $files[rand(0, count($files) - 1)];
+        $fileName = $files[rand(0, count($files) - 1)];
 
-        $file2 = new UploadedFile($placeholderImagesDisk->path($file), $file);
-        $file2->store("pet-pictures", 'public');
-
-
-//
-//        $fileName = \File::basename($file);
-//
-//        Storage::copy(Storage::disk("local")->get($file), Storage::disk("public")->path("pet-pictures/$fileName"));
+        $file = new UploadedFile($placeholderImagesDisk->path($fileName), $fileName);
+        $path = $file->store("pet-pictures", 'public');
 
         return [
-            'url' => $this->faker->url(),
+            'url' => $path,
         ];
     }
 
