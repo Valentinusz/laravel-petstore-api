@@ -10,7 +10,7 @@
                 "tags": [
                     "Adoption"
                 ],
-                "summary": "Get all adoptions",
+                "summary": "Get a page of adoptions",
                 "operationId": "eb0fdc02fca4bc574b72713f2486a883",
                 "responses": {
                     "200": {
@@ -35,7 +35,10 @@
                         }
                     },
                     "404": {
-                        "description": "OK"
+                        "description": "Pet not found"
+                    },
+                    "409": {
+                        "description": "Pet is already adopted"
                     }
                 }
             }
@@ -75,27 +78,25 @@
                     "Adoption"
                 ],
                 "summary": "Update a pet",
-                "operationId": "59492fd8c45148cf386ce665a350c8e4",
+                "operationId": "98cdf35aec3cdd89b45415b06ffcb090",
                 "responses": {
                     "200": {
-                        "description": "Created",
+                        "description": "OK",
                         "content": {
                             "application/json": {}
                         }
                     },
                     "404": {
-                        "description": "OK"
+                        "description": "Adoption not found"
                     }
                 }
-            }
-        },
-        "/api/v1/adoptions/{adoptionId}": {
+            },
             "delete": {
                 "tags": [
                     "Adoption"
                 ],
                 "summary": "Delete a pet",
-                "operationId": "c8db9a2271e15e7a49446de23904996e",
+                "operationId": "b52227a69fb1624f1cff03d3ffe07a91",
                 "parameters": [
                     {
                         "name": "petId",
@@ -555,6 +556,34 @@
                 },
                 "type": "object"
             },
+            "StoreAnimalRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Dog",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateAnimalRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "Dog",
+                        "nullable": false
+                    }
+                },
+                "type": "object"
+            },
             "LoginRequest": {
                 "title": "LoginRequest",
                 "required": [
@@ -569,20 +598,6 @@
                     "password": {
                         "type": "string",
                         "example": "password"
-                    }
-                },
-                "type": "object"
-            },
-            "StoreAnimalRequest": {
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "example": "Dog",
-                        "nullable": false
                     }
                 },
                 "type": "object"
@@ -617,20 +632,6 @@
                             "male",
                             "female"
                         ],
-                        "nullable": false
-                    }
-                },
-                "type": "object"
-            },
-            "UpdateAnimalRequest": {
-                "required": [
-                    "name"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "example": "Dog",
                         "nullable": false
                     }
                 },
@@ -674,6 +675,7 @@
                 },
                 "type": "object"
             },
+            "AdoptionCollection": {},
             "AnimalDetails": {
                 "required": [
                     "id",

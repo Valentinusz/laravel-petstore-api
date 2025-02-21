@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\PetService;
 use App\Models\Animal;
-use App\Models\User;
 use App\Policies\AnimalPolicy;
-use Illuminate\Auth\Access\Gate;
+use App\Services\PetServiceImpl;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(PetService::class, PetServiceImpl::class);
     }
 
     /**

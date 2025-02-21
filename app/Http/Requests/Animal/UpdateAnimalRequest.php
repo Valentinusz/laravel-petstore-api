@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Animal;
 
-use App\Http\Validation\AnimalValidationRules;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +32,7 @@ class UpdateAnimalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => AnimalValidationRules::VALID_ANIMAL_NAME
+            "name" => "required|unique:animals,name|max:255"
         ];
     }
 }

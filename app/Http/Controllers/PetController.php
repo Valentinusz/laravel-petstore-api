@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\PetService;
 use App\Http\Requests\Pet\StorePetRequest;
 use App\Http\Requests\Pet\UpdatePetRequest;
 use App\Http\Resources\Pet\PetCollection;
@@ -13,6 +14,12 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: "Pet")]
 class PetController extends Controller
 {
+    /**
+     * @param PetService $petService
+     */
+    public function __construct(private readonly PetService $petService) {
+    }
+
     #[OA\Get(path: '/api/v1/pets', operationId: "getPets", summary: 'Get a page of pets', tags: ["Pet"])]
     #[OA\Parameter(name: 'page', in: 'query', required: false, schema: new OA\Schema(type: 'integer'), example: 1)]
     #[OA\Parameter(name: 'page-size', in: 'query', required: false, schema: new OA\Schema(type: 'integer'), example: 20)]
@@ -26,12 +33,7 @@ class PetController extends Controller
     ))]
     public function index(Request $request): PetCollection
     {
-        return new PetCollection(
-            Pet::with("animal")->paginate(
-                perPage: $request->query('page-size', 20),
-                page: $request->query('page', 0)
-            )
-        );
+        return new PetCollection($this->petService->findPage(page: $request->query('page', 0), pageSize: $request->query('page-size', 20)));
     }
 
     #[OA\Get(path: '/api/v1/pets/{pet}', summary: 'Get the given pet', tags: ["Pet"])]
@@ -54,7 +56,7 @@ class PetController extends Controller
         Pet::create([
             'name' => $validated['name'],
             'is_male' => $validated['gender'] === 'male',
-            'birth_date' =>  $validated['birth_date'],
+            'birth_date' => $validated['birth_date'],
             'description' => $validated['description'],
             'animal_id' => $validated['animal_id']
         ]);
