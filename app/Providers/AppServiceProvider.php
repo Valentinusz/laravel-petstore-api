@@ -2,10 +2,18 @@
 
 namespace App\Providers;
 
+use App\Contracts\AdoptionService;
+use App\Contracts\AnimalService;
+use App\Contracts\PetPictureService;
 use App\Contracts\PetService;
+use App\Contracts\UserService;
 use App\Models\Animal;
 use App\Policies\AnimalPolicy;
+use App\Services\AdoptionServiceImpl;
+use App\Services\AnimalServiceImpl;
+use App\Services\PetPictureServiceImpl;
 use App\Services\PetServiceImpl;
+use App\Services\UserServiceImpl;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(AdoptionService::class, AdoptionServiceImpl::class);
+        $this->app->bind(AnimalService::class, AnimalServiceImpl::class);
+        $this->app->bind(PetPictureService::class, PetPictureServiceImpl::class);
         $this->app->bind(PetService::class, PetServiceImpl::class);
+        $this->app->bind(UserService::class, UserServiceImpl::class);
     }
 
     /**
