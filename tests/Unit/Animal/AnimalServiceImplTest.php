@@ -5,10 +5,9 @@ use App\Services\AnimalServiceImpl;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-$animalServiceImpl = new AnimalServiceImpl();
-
 uses(TestCase::class);
 
+$animalServiceImpl = new AnimalServiceImpl();
 
 /**
  * @runInSeparateProcess
@@ -16,8 +15,7 @@ uses(TestCase::class);
  */
 describe('findAll', function () use ($animalServiceImpl) {
     test('findAll should return all animals', function () use ($animalServiceImpl) {
-        $animalMock = Mockery::mock(Animal::class)
-            ->shouldReceive('all');
+        $animalMock = Mockery::mock('overload:App\Models\Animal');
 
         $animals = new Collection([
             new Animal([
@@ -30,9 +28,11 @@ describe('findAll', function () use ($animalServiceImpl) {
             ])
         ]);
 
-        $animalMock->andReturn($animals);
+        $animalMock->shouldReceive('all')->andReturn($animals);
 
         expect($animalServiceImpl->findAll())->toEqual($animals);
+
+        Mockery::close();
     });
 });
 
@@ -42,7 +42,7 @@ describe('getById should', function () use ($animalServiceImpl) {
     test("abort when animal is not found", function () use ($animalId, $animalServiceImpl) {
         Mockery::mock('overload:App\Models\Animal')
             ->shouldReceive('find')
-            ->withArgs([$animalId])
+            ->with($animalId)
             ->andReturn(null);
 
         App::shouldReceive('abort')->with(404)->once()->andThrow(new Exception());
@@ -51,7 +51,7 @@ describe('getById should', function () use ($animalServiceImpl) {
     });
 
     test("return animal when found", function () use ($animalId, $animalServiceImpl) {
-        $animalMock = Mockery::mock('overload', Animal::class);
+        $animalMock = Mockery::mock('overload:App\Models\Animal');
 
         $animal = new Animal([
             "id" => 1,
@@ -59,8 +59,8 @@ describe('getById should', function () use ($animalServiceImpl) {
         ]);
 
         $animalMock
-            ->shouldReceive('all')
-            ->withArgs([$animalId])
+            ->shouldReceive('find')
+            ->with($animalId)
             ->andReturn($animal);
 
         expect($animalServiceImpl->getById($animalId))->toEqual($animal);
