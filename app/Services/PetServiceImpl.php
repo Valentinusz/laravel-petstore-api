@@ -26,20 +26,39 @@ readonly class PetServiceImpl implements PetService
 
     public function getById(int $id): Pet
     {
-        // TODO: Implement getById() method.
+        return Pet::findOrFail($id);
     }
 
     public function store(StorePetRequest $request): Pet
     {
-        // TODO: Implement store() method.
+        $validated = $request->validated();
+
+        return Pet::create([
+            'name' => $validated['name'],
+            'is_male' => $validated['gender'] === 'male',
+            'birth_date' => $validated['birth_date'],
+            'description' => $validated['description'],
+            'animal_id' => $validated['animal_id']
+        ]);
     }
 
-    public function update(Pet $pet, UpdatePetRequest $request): Pet
+    public function update(int $petId, UpdatePetRequest $request): Pet
     {
-        // TODO: Implement update() method.
+        $pet = $this->getById($petId);
+        $validated = $request->validated();
+
+        $pet->name = $validated["name"];
+        $pet->is_male = $validated["is_male"];
+        $pet->birth_date = $validated["birth_date"];
+        $pet->description = $validated["description"];
+        $pet->animal_id = $validated["animal"];
+
+        $pet->save();
+
+        return $pet;
     }
 
-    public function destroy(int $petId): Pet
+    public function destroy(int $petId): void
     {
         DB::transaction(function () use ($petId) {
             $this->adoptionService->destroy($petId);

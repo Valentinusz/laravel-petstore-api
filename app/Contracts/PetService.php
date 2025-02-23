@@ -29,15 +29,15 @@ interface PetService
     public function store(StorePetRequest $request): Pet;
 
     /**
-     * @param Pet $pet
+     * @param int $petId
      * @param UpdatePetRequest $request
      * @return Pet
      */
-    public function update(Pet $pet, UpdatePetRequest $request): Pet;
+    public function update(int $petId, UpdatePetRequest $request): Pet;
 
     /**
      * @param int $petId
-     * @return Pet
+     * @return void
      */
-    public function destroy(int $petId): Pet;
+    public function destroy(int $petId): void;
 }
