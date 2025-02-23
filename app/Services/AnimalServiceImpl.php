@@ -49,7 +49,7 @@ class AnimalServiceImpl implements AnimalService
         $animal = $this->getById($id);
 
         if ($animal->pets()->exists()) {
-            abort(409);
+            abort(409, "Animal can't be deleted because it has pets");
         }
 
         $animal->delete();

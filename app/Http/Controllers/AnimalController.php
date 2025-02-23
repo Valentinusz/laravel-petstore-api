@@ -7,7 +7,6 @@ use App\Http\Requests\Animal\StoreAnimalRequest;
 use App\Http\Requests\Animal\UpdateAnimalRequest;
 use App\Http\Resources\Animal\AnimalDetailsResource;
 use App\Http\Resources\Animal\AnimalSummaryResource;
-use App\Models\Animal;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Animal")]
@@ -57,13 +56,9 @@ class AnimalController extends Controller
     #[OA\Response(response: 204, description: "No content", content: new OA\MediaType('application/json'))]
     #[OA\Response(response: 404, description: "Not found")]
     #[OA\Response(response: 409, description: "Conflict - A pet exists for the animal type")]
-    public function destroy(Animal $animal)
+    public function destroy(int $animalId)
     {
-        if ($animal->pets()->exists()) {
-            return response(status: 409);
-        }
-
-        $animal->delete();
+        $this->destroy($animalId);
 
         return response(status: 204);
     }

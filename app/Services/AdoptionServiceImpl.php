@@ -6,6 +6,7 @@ use App\Contracts\AdoptionService;
 use App\Http\Requests\Adoption\StoreAdoptionRequest;
 use App\Models\Adoption;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class AdoptionServiceImpl implements AdoptionService
 {
@@ -26,18 +27,13 @@ class AdoptionServiceImpl implements AdoptionService
         return $adoption;
     }
 
-    function store(StoreAdoptionRequest $adoption): Adoption
-    {
-        // TODO: Implement store() method.
-    }
-
-    function update(int $id, StoreAdoptionRequest $updatedAdoption): Adoption
-    {
-        // TODO: Implement update() method.
-    }
-
-    function destroy(int $id): void
+    function destroy(int $adoptionId): void
     {
         // TODO: Implement destroy() method.
+    }
+
+    function destroyByPetId(int $petId): void
+    {
+        DB::table('adoptions')->where('pet_id', '=', $petId)->delete();
     }
 }

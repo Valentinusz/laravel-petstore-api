@@ -82,14 +82,13 @@ class PetController extends Controller
         return new PetResource($pet);
     }
 
-    #[OA\Delete(path: '/api/v1/pets/{pet}', summary: 'Delete a pet', tags: ["Pet"])]
+    #[OA\Delete(path: '/api/v1/pets/{petId}', summary: 'Delete a pet', tags: ["Pet"])]
     #[OA\Parameter(name: 'petId', in: 'path', required: true, schema: new OA\Schema(type: 'integer'), example: 1)]
     #[OA\Response(response: 204, description: 'No content', content: new OA\MediaType('application/json'))]
     #[OA\Response(response: 404, description: 'Not found')]
-    public function destroy(Pet $pet)
+    public function destroy(int $petId)
     {
-        $pet->
-        $pet->delete();
+        $this->petService->destroy($petId);
 
         return response()->noContent();
     }

@@ -18,8 +18,8 @@ interface AdoptionService
 
     /**
      * @param int $id
-     * @throws NotFoundHttpException if the adoption does not exist
      * @return Adoption
+     * @throws NotFoundHttpException if the adoption does not exist
      */
     function getById(int $id): Adoption;
 
@@ -36,9 +36,15 @@ interface AdoptionService
 //     */
 //    function update(int $id, StoreAdoptionRequest $updatedAdoption): Adoption;
 //
-//    /**
-//     * @param int $id
-//     * @return void
-//     */
-//    function destroy(int $id): void;
+    /**
+     * @param int $adoptionId
+     * @return void
+     */
+    function destroy(int $adoptionId): void;
+
+    /**
+     * @param int $petId
+     * @return void
+     */
+    function destroyByPetId(int $petId): void;
 }
