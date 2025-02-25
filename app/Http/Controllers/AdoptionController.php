@@ -20,13 +20,22 @@ class AdoptionController extends Controller
     }
 
     #[OA\Get(path: '/api/v1/adoptions', summary: 'Get a page of adoptions', tags: ["Adoption"])]
-    #[OA\Response(response: 200, description: 'OK', content: new OA\MediaType('application/json'))]
+    #[Oa\Parameter(name: "page", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 1)]
+    #[Oa\Parameter(name: "page-size", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 20)]
+    #[OA\Response(response: 200, description: 'OK', content: new OA\JsonContent(
+        title: "PageOfAdoption",
+        required: ["data", "meta"],
+        properties: [
+            new OA\Property(property: "data", type: "array", items: new OA\Items(ref: "#/components/schemas/Adoption")),
+            new OA\Property(property: "meta", ref: "#/components/schemas/PageMeta")
+        ]
+    ))]
     public function index(Request $request)
     {
         return new AdoptionCollection(
             $this->adoptionService->findPage(
                 page: $request->query('page', 1),
-                pageSize: $request->query("perPage", 20)
+                pageSize: $request->query("page-size", 20)
             ));
     }
 
