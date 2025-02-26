@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\AdoptionService;
+use App\Contracts\PetService;
 use App\Http\Requests\Adoption\StoreAdoptionRequest;
 use App\Http\Requests\Adoption\UpdateAdoptionRequest;
 use App\Http\Resources\Adoption\AdoptionCollection;
@@ -49,7 +50,7 @@ class AdoptionController extends Controller
         return AdoptionResource::make($this->adoptionService->getById($adoptionId));
     }
 
-    #[OA\Post(path: '/api/v1/adoptions', summary: 'Add a new pet', tags: ["Adoption"])]
+    #[OA\Post(path: '/api/v1/adoptions', summary: 'Adopt a pet', tags: ["Adoption"])]
     #[OA\Response(response: 201, description: 'Created', content: new OA\MediaType('application/json'))]
     #[OA\Response(response: 404, description: 'Pet not found')]
     #[OA\Response(response: 409, description: 'Pet is already adopted')]
