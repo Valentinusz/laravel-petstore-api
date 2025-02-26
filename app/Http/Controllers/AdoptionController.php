@@ -20,8 +20,8 @@ class AdoptionController extends Controller
     }
 
     #[OA\Get(path: '/api/v1/adoptions', summary: 'Get a page of adoptions', tags: ["Adoption"])]
-    #[Oa\Parameter(name: "page", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 1)]
-    #[Oa\Parameter(name: "page-size", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 20)]
+    #[OA\Parameter(name: "page", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 1)]
+    #[OA\Parameter(name: "page-size", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 20)]
     #[OA\Response(response: 200, description: 'OK', content: new OA\JsonContent(
         title: "PageOfAdoption",
         required: ["data", "meta"],
@@ -42,6 +42,7 @@ class AdoptionController extends Controller
     #[OA\Get(path: '/api/v1/adoptions/{adoptionId}', summary: 'Get the given pet', tags: ["Adoption"])]
     #[OA\Parameter(name: 'adoptionId', in: 'path', required: true, schema: new OA\Schema(type: 'integer'), example: 1)]
     #[OA\Response(response: 200, description: 'OK', content: new OA\MediaType('application/json'))]
+    #[OA\Response(response: 401, description: "Unauthorized")]
     #[OA\Response(response: 404, description: 'Not found')]
     public function show(int $adoptionId)
     {

@@ -12,7 +12,7 @@ class AdoptionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,7 +20,7 @@ class AdoptionPolicy
      */
     public function view(User $user, Adoption $adoption): bool
     {
-        return false;
+        return true;
     }
 
     /**

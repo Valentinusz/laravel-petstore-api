@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Adoption extends Model
@@ -18,10 +19,10 @@ class Adoption extends Model
 
     /**
      * User who adopted the pet.
-     * @return HasOne
+     * @return BelongsTo
      */
     public function user(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }
