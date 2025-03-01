@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Petstore API",
+        "title": "PetShelter API",
         "version": "0.0"
     },
     "paths": {
@@ -65,20 +65,28 @@
                 "tags": [
                     "Adoption"
                 ],
-                "summary": "Add a new pet",
-                "operationId": "72ecdd1af856b3617e9cbb5a00444705",
+                "summary": "Add a new adoption",
+                "operationId": "createAdoption",
                 "responses": {
                     "201": {
                         "description": "Created",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Adoption"
+                                }
+                            }
                         }
                     },
-                    "404": {
-                        "description": "Pet not found"
-                    },
                     "409": {
-                        "description": "Pet is already adopted"
+                        "description": "Pet is already adopted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -110,23 +118,18 @@
                     },
                     "401": {
                         "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not found"
                     }
                 }
-            }
-        },
-        "/api/v1/adoptions/{adoption}": {
+            },
             "put": {
                 "tags": [
                     "Adoption"
                 ],
                 "summary": "Update a pet",
-                "operationId": "98cdf35aec3cdd89b45415b06ffcb090",
+                "operationId": "9d401ba88dfa6d84f2c403c31af11495",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Updated",
                         "content": {
                             "application/json": {}
                         }
@@ -140,11 +143,11 @@
                 "tags": [
                     "Adoption"
                 ],
-                "summary": "Delete a pet",
-                "operationId": "b52227a69fb1624f1cff03d3ffe07a91",
+                "summary": "Delete an adoption",
+                "operationId": "c8db9a2271e15e7a49446de23904996e",
                 "parameters": [
                     {
-                        "name": "petId",
+                        "name": "adoptionId",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -155,13 +158,13 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "No content",
+                        "description": "Adoption deleted",
                         "content": {
                             "application/json": {}
                         }
                     },
                     "404": {
-                        "description": "Not found"
+                        "description": "Adoption does not exist"
                     }
                 }
             }
@@ -601,6 +604,10 @@
                 },
                 "type": "object"
             },
+            "ErrorResponse": {
+                "required": [],
+                "properties": {}
+            },
             "StoreAnimalRequest": {
                 "required": [
                     "name"
@@ -720,7 +727,6 @@
                 },
                 "type": "object"
             },
-            "AdoptionCollection": {},
             "Adoption": {
                 "required": [
                     "id"
@@ -733,6 +739,7 @@
                 },
                 "type": "object"
             },
+            "AdoptionCollection": {},
             "AnimalDetails": {
                 "required": [
                     "id",
@@ -826,6 +833,15 @@
                 "type": "object"
             },
             "User": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {}
+                },
+                "type": "object"
+            },
+            "UserSummary": {
                 "required": [
                     "name"
                 ],

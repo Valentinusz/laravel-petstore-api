@@ -5,13 +5,14 @@ namespace App\Services;
 use App\Contracts\AdoptionService;
 use App\Contracts\PetService;
 use App\Http\Requests\Adoption\StoreAdoptionRequest;
+use App\Http\Requests\Adoption\UpdateAdoptionRequest;
 use App\Models\Adoption;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
-class AdoptionServiceImpl implements AdoptionService
+readonly class AdoptionServiceImpl implements AdoptionService
 {
-    public function __construct(private readonly PetService $petService)
+    public function __construct(private PetService $petService)
     {
     }
 
@@ -41,6 +42,14 @@ class AdoptionServiceImpl implements AdoptionService
 
             return $adoption;
         });
+    }
+
+    public function update(int $adoptionId, UpdateAdoptionRequest $request): Adoption {
+        $adoption = $this->getById($adoptionId);
+
+        $adoption->update();
+
+        return $adoption;
     }
 
     function destroy(int $adoptionId): void

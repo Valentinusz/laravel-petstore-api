@@ -2,7 +2,8 @@
 
 namespace App\Contracts;
 
-//use App\Http\Requests\Adoption\StoreAdoptionRequest;
+use App\Http\Requests\Adoption\StoreAdoptionRequest;
+use App\Http\Requests\Adoption\UpdateAdoptionRequest;
 use App\Models\Adoption;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -23,19 +24,19 @@ interface AdoptionService
      */
     function getById(int $id): Adoption;
 
-//    /**
-//     * @param StoreAdoptionRequest $adoption
-//     * @return Adoption
-//     */
-//    function store(StoreAdoptionRequest $adoption): Adoption;
-//
-//    /**
-//     * @param int $id
-//     * @param StoreAdoptionRequest $updatedAdoption
-//     * @return Adoption
-//     */
-//    function update(int $id, StoreAdoptionRequest $updatedAdoption): Adoption;
-//
+    /**
+     * @param StoreAdoptionRequest $adoption
+     * @return Adoption
+     */
+    function store(StoreAdoptionRequest $adoption): Adoption;
+
+    /**
+     * @param int $id
+     * @param UpdateAdoptionRequest $updatedAdoption
+     * @return Adoption
+     */
+    function update(int $id, UpdateAdoptionRequest $updatedAdoption): Adoption;
+
     /**
      * @param int $adoptionId
      * @return void

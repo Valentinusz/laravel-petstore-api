@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use OpenApi\Attributes as OA;
 use phpDocumentor\Reflection\DocBlock\Tags\Property;
 
-#[OA\Info(version: "0.0", title: "Petstore API")]
+#[OA\Info(version: "0.0", title: "PetShelter API")]
 #[OA\SecurityScheme(securityScheme: "cookie", type: "apiKey", name: 'laravel_session', in: "cookie")]
 #[OA\Schema(schema: "PageMeta", required: ["current_page", "from", "last_page", "path", "per_page", "to", "total"], properties: [
     new OA\Property(property: "current_page", description: "Index of the current page. Indexed from 1.", type: "integer", example: 1),
@@ -16,6 +16,10 @@ use phpDocumentor\Reflection\DocBlock\Tags\Property;
     new OA\Property(property: 'to', description: "Index of the last item of the page among all items. Equal to page * (per_page + 1).", type: 'integer', example: 10),
     new OA\Property(property: 'total', description: "Total count of items", type: "integer", example: 20),
 ])]
+#[OA\Schema(
+    schema: "ErrorResponse",
+    required: [],
+    properties: [])]
 abstract class Controller
 {
     //

@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(schema: "AdoptionCollection")]
-class AdoptionCollection extends ResourceCollection
+class AdoptionSummaryCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
