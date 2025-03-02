@@ -1,6 +1,6 @@
 <?php
 
-namespace App\OpenApi;
+namespace App\Openapi\Attributes;
 
 use OpenApi\Attributes as OA;
 
@@ -16,8 +16,14 @@ use OpenApi\Attributes as OA;
         ?array          $attachables = null
     )
     {
-
-        dd($response);
-        parent::__construct($response, $description, $headers, $links, new OA\JsonContent(ref: "#/components/schemas/ErrorResponse"), $x, $attachables);
+        parent::__construct(
+            response: $response,
+            description: $description,
+            headers: $headers,
+            content: new OA\JsonContent(ref: "#/components/schemas/ErrorResponse"),
+            links: $links,
+            x: $x,
+            attachables: $attachables
+        );
     }
 }

@@ -34,7 +34,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -67,6 +67,15 @@
                 ],
                 "summary": "Add a new adoption",
                 "operationId": "createAdoption",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreAdoptionRequest"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "201": {
                         "description": "Created",
@@ -74,6 +83,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Adoption"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pet not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
                                 }
                             }
                         }
@@ -111,13 +130,34 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "Ok",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Adoption"
+                                }
+                            }
                         }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -131,7 +171,11 @@
                     "200": {
                         "description": "Updated",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Adoption"
+                                }
+                            }
                         }
                     },
                     "404": {
@@ -607,6 +651,18 @@
             "ErrorResponse": {
                 "required": [],
                 "properties": {}
+            },
+            "StoreAdoptionRequest": {
+                "required": [
+                    "petId"
+                ],
+                "properties": {
+                    "petId": {
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
             },
             "StoreAnimalRequest": {
                 "required": [

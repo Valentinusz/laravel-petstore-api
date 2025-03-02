@@ -5,7 +5,11 @@ namespace App\Http\Requests\Adoption;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Attributes as OA;
 
+#[OA\Schema(schema: "StoreAdoptionRequest", required: ["petId"], properties: [
+    new OA\Property(property: "petId", type: "integer", example: "1")
+])]
 class StoreAdoptionRequest extends FormRequest
 {
     /**
@@ -24,7 +28,7 @@ class StoreAdoptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pet' => 'exists:pets,id',
+            'petId' => 'exists:pets,id',
         ];
     }
 }

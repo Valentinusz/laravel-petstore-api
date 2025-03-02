@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\AdoptionService;
-use App\Contracts\PetService;
 use App\Http\Requests\Adoption\StoreAdoptionRequest;
 use App\Http\Requests\Adoption\UpdateAdoptionRequest;
 use App\Http\Resources\Adoption\AdoptionSummaryCollection;
 use App\Http\Resources\Adoption\AdoptionResource;
-use App\Models\Adoption;
-use App\OpenApi\ErrorResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use OpenApi\Attributes as OA;
+use App\OpenApi\Attributes as OAE;
 
 #[OA\Tag(name: "Adoption")]
 class AdoptionController extends Controller
@@ -22,9 +19,9 @@ class AdoptionController extends Controller
     }
 
     #[OA\Get(path: '/api/v1/adoptions', summary: 'Get a page of adoptions', tags: ["Adoption"])]
-    #[OA\Parameter(name: "page", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 1)]
-    #[OA\Parameter(name: "page-size", in: "query", required: false, schema: new OA\Schema(type: "integer"), example: 20)]
-    #[OA\Response(response: 200, description: 'OK', content: new OA\JsonContent(
+    #[OA\QueryParameter(name: "page", required: false, schema: new OA\Schema(type: "integer"), example: 1)]
+    #[OA\QueryParameter(name: "page-size", required: false, schema: new OA\Schema(type: "integer"), example: 20)]
+    #[OAE\OkResponse(content: new OA\JsonContent(
         title: "PageOfAdoption",
         required: ["data", "meta"],
         properties: [
@@ -42,12 +39,11 @@ class AdoptionController extends Controller
     }
 
     #[OA\Get(path: '/api/v1/adoptions/{adoptionId}', summary: 'Get the given pet', tags: ["Adoption"])]
-    #[OA\Parameter(name: 'adoptionId', in: 'path', required: true, schema: new OA\Schema(type: 'integer'), example: 1)]
-    #[OA\Response(response: 200, description: 'OK', content: new OA\MediaType('application/json'))]
-    #[OA\Response(response: 401, description: "Unauthorized")]
-//    #[OA\Response(response: 404, description: 'Not found')]
-    #[ErrorResponse(response: 404, description: 'Pet not found')]
-    public function show(int $adoptionId)
+    #[OA\PathParameter(name: 'adoptionId', required: true, schema: new OA\Schema(type: 'integer'), example: 1)]
+    #[OAE\OkResponse(content: new OA\JsonContent(type: AdoptionResource::class))]
+    #[OAE\ErrorResponse(response: 401, description: "Unauthorized")]
+    #[OAE\ErrorResponse(response: 404, description: 'Not found')]
+    public function show(int $adoptionId): AdoptionResource
     {
         return AdoptionResource::make($this->adoptionService->getById($adoptionId));
     }
@@ -57,21 +53,17 @@ class AdoptionController extends Controller
         operationId: "createAdoption",
         summary: 'Add a new adoption',
         tags: ["Adoption"])]
-    #[OA\Response(
-        response: 201,
-        description: 'Created',
-        content: new OA\JsonContent(ref: "#/components/schemas/Adoption"))]
-    #[ErrorResponse(response: 404, description: 'Pet not found')]
-    #[ErrorResponse(response: 404, description: 'Pet not found')]
-    #[ErrorResponse(response: 404, description: 'Pet not found')]
-    #[OA\Response(response: 409, description: 'Pet is already adopted', content: new OA\JsonContent(ref: "#/components/schemas/ErrorResponse"))]
-    public function store(StoreAdoptionRequest $request)
+    #[OA\RequestBody(content: new OA\JsonContent(type: StoreAdoptionRequest::class))]
+    #[OAE\CreatedResponse(content: new OA\JsonContent(type: AdoptionResource::class))]
+    #[OAE\ErrorResponse(response: 404, description: 'Pet not found')]
+    #[OAE\ErrorResponse(response: 409, description: 'Pet is already adopted')]
+    public function store(StoreAdoptionRequest $request): AdoptionResource
     {
         return new AdoptionResource($this->adoptionService->store($request));
     }
 
     #[OA\Put(path: '/api/v1/adoptions/{adoptionId}', summary: 'Update a pet', tags: ["Adoption"])]
-    #[OA\Response(response: 200, description: 'Updated', content: new OA\MediaType('application/json'))]
+    #[OAE\OkResponse(description: 'Updated', content: new OA\JsonContent(type: AdoptionResource::class))]
     #[OA\Response(response: 404, description: 'Adoption not found')]
     public function update(int $adoptionId, UpdateAdoptionRequest $request): AdoptionResource
     {
