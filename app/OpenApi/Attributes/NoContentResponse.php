@@ -8,15 +8,13 @@ use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\MediaType;
 use OpenApi\Attributes\XmlContent;
 
-#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)] class OkResponse extends OA\Response
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)] class NoContentResponse extends OA\Response
 {
     public function __construct(
         string|object|null $ref = null,
-
-        string $description = "Ok",
+        string $description = "No content",
         ?array $headers = null,
         MediaType|JsonContent|XmlContent|Attachable|array|null $content = null,
-        string|null $jsonContentType = null,
         ?array $links = null,
         // annotation
         ?array $x = null,
@@ -24,10 +22,10 @@ use OpenApi\Attributes\XmlContent;
     )
     {
         parent::__construct(
-            response: 200,
+            response: 204,
             description: $description,
             headers: $headers,
-            content: $jsonContentType ? new JsonContent(type: $jsonContentType) : $content,
+            content: $content,
             links: $links,
             x: $x,
             attachables: $attachables

@@ -11,7 +11,7 @@
                     "Adoption"
                 ],
                 "summary": "Get a page of adoptions",
-                "operationId": "eb0fdc02fca4bc574b72713f2486a883",
+                "operationId": "getAdoptionPage",
                 "parameters": [
                     {
                         "name": "page",
@@ -115,8 +115,8 @@
                 "tags": [
                     "Adoption"
                 ],
-                "summary": "Get the given pet",
-                "operationId": "05e1df222f443097ff5b0f03437faaa1",
+                "summary": "Get the given adoption",
+                "operationId": "getAdoption",
                 "parameters": [
                     {
                         "name": "adoptionId",
@@ -140,24 +140,13 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorResponse"
-                                }
-                            }
-                        }
+                        "description": "Not found"
                     }
                 }
             },
@@ -202,10 +191,7 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Adoption deleted",
-                        "content": {
-                            "application/json": {}
-                        }
+                        "description": "Adoption deleted"
                     },
                     "404": {
                         "description": "Adoption does not exist"
